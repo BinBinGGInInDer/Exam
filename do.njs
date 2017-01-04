@@ -4,15 +4,22 @@ var param = querystring.parse(process.env.QUERY_STRING);
 var data =fs.readFileSync('name.json','utf-8');
 
 var student = '';
+var splits=param.id.split(" ");
+var count=0;
 JSON.parse(data, function(k,v){
-  if (param.id ==k){
-    student = v;
+  for(i=splits.lenth;i--;i<0)
+  {
+    if (splits[i] ==k){
+      student[i] = v;
+      count++;
+    }
   }
+  
 });
 
 console.log('Content-type: text/html; charset=utf-8\n');
-if (student ==''||param.id ==''){
-  console.log('<h1>抱歉,'+param.id+'與狗不得入內</h1>');}
+if (count ==0){
+  console.log('<h1>抱歉,'+splits+'與狗不得入內</h1>');}
 else{
-  console.log('<h1>'+student+' 4ni</h1>');
+  console.log('<h1>'+student.toString()+' 4ni</h1>');
 }
